@@ -1,6 +1,8 @@
 from django.conf.urls.defaults import patterns, include, url
 from django.contrib.auth.views import login, logout
 
+from django.conf import settings
+
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -27,5 +29,8 @@ urlpatterns = patterns('',
     url(r'^(?P<short>[0-9a-zA-Z]+)/$', 'shortener.views.detail'),
     # send a url to be shortened from /url/someencodedurl
     url(r'^url/(?P<stumpurl>\S+)/$', 'shortener.views.submit'),
+
+   (r'^static/(.*)$','django.views.static.serve',{'document_root': settings.STATIC_ROOT, 'show_indexes': True}),
+   (r'^admin-media/(.*)$','django.views.static.serve',{'document_root': settings.ADMIN_MEDIA_ROOT, 'show_indexes': True}),
 
 )
